@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#050806">
+
 <title>STONKERS Market Desk | Live From The Trenches</title>
-<meta name="description" content="STONKERS Market Desk — live crypto markets, trench sentiment, community interaction and market chaos.">
+
+<meta name="description"
+content="STONKERS Market Desk — live crypto markets, market intelligence, trench sentiment and tools from the trenches.">
 
 <style>
 :root{
@@ -48,6 +51,10 @@ body:before{
   background-size:100% 4px;
   opacity:.3;
   z-index:999;
+}
+
+button,input{
+  font:inherit;
 }
 
 .wrap{
@@ -116,9 +123,19 @@ body:before{
   width:8px;
   height:8px;
   border-radius:50%;
+  background:var(--amber);
+  box-shadow:0 0 12px var(--amber);
+}
+
+.dot.live{
   background:var(--green);
   box-shadow:0 0 12px var(--green);
   animation:pulse 1.8s infinite;
+}
+
+.dot.offline{
+  background:var(--red);
+  box-shadow:0 0 12px var(--red);
 }
 
 @keyframes pulse{
@@ -223,7 +240,30 @@ body:before{
   opacity:.35;
 }
 
-.asset{grid-column:span 4}
+.section-title{
+  margin:42px 0 15px;
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.section-title h2{
+  margin:0;
+  font-size:20px;
+  letter-spacing:1px;
+}
+
+.section-title span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* MARKET CARDS */
+
+.asset{
+  grid-column:span 4;
+}
 
 .asset-top{
   display:flex;
@@ -238,8 +278,8 @@ body:before{
 }
 
 .coin-icon{
-  width:38px;
-  height:38px;
+  width:40px;
+  height:40px;
   border-radius:50%;
   display:grid;
   place-items:center;
@@ -274,37 +314,32 @@ body:before{
 .down{color:var(--red)}
 .flat{color:var(--muted)}
 
-.range{
-  display:flex;
-  justify-content:space-between;
+.asset-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:8px;
   margin-top:16px;
   padding-top:13px;
   border-top:1px solid var(--line);
+}
+
+.mini-stat{
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
 }
 
-.section-title{
-  margin:42px 0 15px;
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:20px;
+.mini-stat b{
+  display:block;
+  color:#dce8df;
+  font-size:11px;
+  margin-top:4px;
 }
 
-.section-title h2{
-  margin:0;
-  font-size:20px;
-  letter-spacing:1px;
-}
+/* GLOBAL MARKET */
 
-.section-title span{
-  color:var(--muted);
-  font-size:10px;
+.stat{
+  grid-column:span 3;
 }
-
-.stat{grid-column:span 3}
 
 .stat label{
   display:block;
@@ -320,9 +355,11 @@ body:before{
   margin-top:12px;
 }
 
+/* PULSE */
+
 .trench{
   grid-column:span 7;
-  min-height:300px;
+  min-height:320px;
 }
 
 .trench-head{
@@ -349,7 +386,6 @@ body:before{
   margin:48px 0 12px;
   position:relative;
   background:linear-gradient(90deg,#a31528,#ff3b4d,#ffbd2e,#a5e85a,#39ff14);
-  box-shadow:0 0 25px rgba(57,255,20,.08);
 }
 
 .needle{
@@ -374,25 +410,29 @@ body:before{
 
 .trench-score{
   text-align:center;
-  margin-top:34px;
+  margin-top:30px;
 }
 
 .trench-score strong{
-  font-size:37px;
+  font-size:40px;
   display:block;
 }
 
 .trench-score span{
   color:var(--muted);
+  font-size:10px;
+}
+
+.pulse-reason{
+  text-align:center;
+  color:var(--muted);
   font-size:11px;
+  margin-top:13px;
+  line-height:1.5;
 }
 
 .brief{
   grid-column:span 5;
-}
-
-.brief-lines{
-  margin-top:18px;
 }
 
 .brief-line{
@@ -402,14 +442,16 @@ body:before{
   line-height:1.5;
 }
 
+/* COMMUNITY */
+
 .vote{
-  grid-column:span 6;
+  grid-column:span 7;
 }
 
 .vote-buttons{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
   margin-top:20px;
 }
 
@@ -417,10 +459,10 @@ body:before{
   border:1px solid var(--line);
   color:white;
   background:#0a100c;
-  padding:24px 10px;
+  padding:21px 7px;
   border-radius:13px;
   cursor:pointer;
-  font-size:18px;
+  font-size:15px;
   font-weight:900;
   transition:.2s;
 }
@@ -444,43 +486,42 @@ body:before{
   background:#151b16;
 }
 
-.bull-bar{
-  background:var(--green);
-  width:50%;
-  transition:.4s;
-}
-
-.bear-bar{
-  background:var(--red);
-  width:50%;
-  transition:.4s;
-}
+.bull-bar{background:var(--green)}
+.unsure-bar{background:var(--amber)}
+.bear-bar{background:var(--red)}
 
 .vote-results{
-  display:flex;
-  justify-content:space-between;
-  margin-top:8px;
-  font-size:11px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  margin-top:9px;
+  font-size:10px;
+  text-align:center;
+}
+
+.local-note{
+  color:var(--muted);
+  font-size:9px;
+  margin-top:12px;
+  text-align:center;
 }
 
 .degen{
-  grid-column:span 6;
+  grid-column:span 5;
   text-align:center;
 }
 
 .degen-button{
   width:100%;
-  margin-top:22px;
+  margin-top:18px;
   border:none;
   border-radius:14px;
-  padding:20px;
+  padding:19px;
   background:var(--green);
   color:#041004;
-  font-size:17px;
+  font-size:16px;
   font-weight:1000;
   cursor:pointer;
   letter-spacing:1px;
-  box-shadow:0 0 30px rgba(57,255,20,.18);
   transition:.2s;
 }
 
@@ -490,27 +531,111 @@ body:before{
 }
 
 .prompt{
-  min-height:72px;
+  min-height:75px;
   display:grid;
   place-items:center;
-  margin-top:18px;
+  margin-top:16px;
   padding:15px;
   border:1px dashed #29402e;
   border-radius:12px;
   color:#d6e4d9;
-  font-size:13px;
+  font-size:12px;
   line-height:1.5;
 }
 
-.share{
-  margin-top:10px;
-  border:1px solid var(--line);
-  background:transparent;
+/* CALCULATOR */
+
+.calculator{
+  grid-column:span 6;
+}
+
+.calc-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+
+.field label{
+  display:block;
   color:var(--muted);
+  font-size:9px;
+  letter-spacing:1px;
+  margin-bottom:7px;
+}
+
+.field input{
+  width:100%;
+  border:1px solid var(--line);
+  background:#080d09;
+  color:white;
+  border-radius:10px;
+  padding:14px;
+  outline:none;
+}
+
+.field input:focus{
+  border-color:var(--green);
+}
+
+.calc-result{
+  margin-top:18px;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#080d09;
+}
+
+.calc-result strong{
+  display:block;
+  font-size:27px;
+  margin-top:5px;
+}
+
+.calc-result small{
+  color:var(--muted);
+}
+
+/* DAILY CLOSE */
+
+.daily{
+  grid-column:span 6;
+}
+
+.close-output{
+  margin-top:17px;
+  min-height:210px;
+  padding:17px;
+  white-space:pre-line;
+  border:1px solid var(--line);
+  background:#070b08;
+  border-radius:12px;
+  color:#dce8df;
+  line-height:1.6;
+  font-size:12px;
+}
+
+.action-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:11px;
+}
+
+.action{
+  border:1px solid var(--line);
+  background:#0c120e;
+  color:white;
+  padding:10px 13px;
   border-radius:9px;
-  padding:9px 13px;
   cursor:pointer;
 }
+
+.action:hover{
+  border-color:var(--green);
+}
+
+/* EMERGENCY */
 
 .emergency{
   grid-column:span 7;
@@ -522,12 +647,23 @@ body:before{
   border-radius:13px;
   padding:20px;
   background:rgba(57,255,20,.035);
+  transition:.3s;
+}
+
+.emergency-box.alert{
+  border-color:var(--red);
+  background:rgba(255,59,77,.07);
+  box-shadow:0 0 30px rgba(255,59,77,.08);
 }
 
 .emergency-status{
   color:var(--green);
   font-weight:900;
   letter-spacing:1px;
+}
+
+.emergency-box.alert .emergency-status{
+  color:var(--red);
 }
 
 .emergency p{
@@ -543,6 +679,7 @@ body:before{
 .today-row{
   display:flex;
   justify-content:space-between;
+  gap:15px;
   padding:12px 0;
   border-bottom:1px solid var(--line);
   font-size:12px;
@@ -551,6 +688,40 @@ body:before{
 .today-row span:first-child{
   color:var(--muted);
 }
+
+/* NETWORK */
+
+.network-card{
+  grid-column:span 3;
+  text-align:center;
+  text-decoration:none;
+  color:white;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.network-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--green);
+}
+
+.network-icon{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.network-card b{
+  display:block;
+  margin-bottom:6px;
+}
+
+.network-card span{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* COMMON */
 
 .refresh{
   border:1px solid var(--line);
@@ -561,17 +732,9 @@ body:before{
   cursor:pointer;
 }
 
-.refresh:hover{border-color:var(--green)}
-
-.footer{
-  text-align:center;
-  color:#657268;
-  font-size:10px;
-  line-height:1.7;
-  padding:55px 0 35px;
+.refresh:hover{
+  border-color:var(--green);
 }
-
-.footer strong{color:var(--green)}
 
 .loading{
   animation:blink 1s infinite alternate;
@@ -581,6 +744,41 @@ body:before{
   from{opacity:.35}
   to{opacity:1}
 }
+
+.footer{
+  text-align:center;
+  color:#657268;
+  font-size:10px;
+  line-height:1.7;
+  padding:55px 0 35px;
+}
+
+.footer strong{
+  color:var(--green);
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,30px);
+  opacity:0;
+  pointer-events:none;
+  z-index:6000;
+  background:#101712;
+  border:1px solid var(--green);
+  padding:11px 16px;
+  border-radius:10px;
+  font-size:11px;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* EASTER EGG */
 
 .degen-mode{
   animation:degenBG .35s infinite alternate;
@@ -598,7 +796,7 @@ body:before{
   display:none;
   place-items:center;
   text-align:center;
-  background:rgba(0,0,0,.9);
+  background:rgba(0,0,0,.92);
   padding:30px;
 }
 
@@ -634,21 +832,57 @@ body:before{
 }
 
 @media(max-width:850px){
-  .asset,.stat,.trench,.brief,.vote,.degen,.emergency,.today{
+  .asset,.trench,.brief,.vote,.degen,.calculator,.daily,
+  .emergency,.today,.network-card{
     grid-column:span 12;
   }
-  .stat{grid-column:span 6}
-  .hero{padding-top:50px}
-  .hero h1{letter-spacing:-2px}
+
+  .stat{
+    grid-column:span 6;
+  }
+
+  .network-card{
+    grid-column:span 6;
+  }
+
+  .hero{
+    padding-top:50px;
+  }
 }
 
 @media(max-width:520px){
-  .stat{grid-column:span 12}
-  .nav{min-height:62px}
-  .status .desktop-only{display:none}
-  .card{padding:17px}
-  .meter-labels{font-size:6px}
-  .hero h1{font-size:42px}
+  .stat,.network-card{
+    grid-column:span 12;
+  }
+
+  .vote-buttons{
+    grid-template-columns:1fr;
+  }
+
+  .calc-grid{
+    grid-template-columns:1fr;
+  }
+
+  .nav{
+    min-height:62px;
+  }
+
+  .desktop-only{
+    display:none;
+  }
+
+  .card{
+    padding:17px;
+  }
+
+  .meter-labels{
+    font-size:6px;
+  }
+
+  .hero h1{
+    font-size:42px;
+    letter-spacing:-2px;
+  }
 }
 </style>
 </head>
@@ -664,10 +898,14 @@ body:before{
   </div>
 </div>
 
+<div class="toast" id="toast">COPIED</div>
+
 <header class="topbar">
   <div class="wrap nav">
+
     <div class="brand" id="secretBull" title="STONKERS">
       <div class="logo">🐂</div>
+
       <div>
         <strong>STONKERS</strong>
         <small>MARKET DESK</small>
@@ -675,35 +913,40 @@ body:before{
     </div>
 
     <div class="status">
-      <span class="dot"></span>
-      <span>MARKET FEED</span>
+      <span class="dot" id="feedDot"></span>
+      <span id="feedStatus">CONNECTING</span>
       <span class="desktop-only">•</span>
       <span id="clock" class="desktop-only">--:--:-- UTC</span>
     </div>
+
   </div>
 </header>
 
 <div class="ticker">
   <div class="ticker-track" id="ticker">
-    CONNECTING TO THE TRENCHES • BTC -- • ETH -- • SOL -- • STONKERS MARKET DESK • NO SURRENDER • NO RETREAT •
+    CONNECTING TO THE TRENCHES • STONKERS MARKET DESK • NO SURRENDER • NO RETREAT •
   </div>
 </div>
 
 <main class="wrap">
 
 <section class="hero">
+
   <div class="eyebrow">LIVE FROM THE TRENCHES</div>
+
   <h1>MARKET <span>DESK</span></h1>
+
   <p>
-    Crypto markets without the suit and tie.
-    Live numbers, trench sentiment, community calls and just enough chaos to keep things interesting.
+    A crypto command center built for the people still watching charts,
+    surviving volatility and somehow coming back tomorrow.
   </p>
 
   <div class="hero-meta">
-    <div class="pill">● LIVE MARKET DATA</div>
+    <div class="pill">● PUBLIC MARKET DATA</div>
     <div class="pill" id="updated">LAST UPDATE: CONNECTING...</div>
-    <div class="pill">SOLANA NATIVE</div>
+    <div class="pill">🐂 STONKERS COMMAND</div>
   </div>
+
 </section>
 
 <div class="section-title">
@@ -715,6 +958,7 @@ body:before{
 
 <div class="card asset">
   <div class="asset-top">
+
     <div class="coin">
       <div class="coin-icon">₿</div>
       <div>
@@ -722,19 +966,23 @@ body:before{
         <div class="coin-name">Bitcoin</div>
       </div>
     </div>
+
     <div id="btcChange" class="change flat">--</div>
   </div>
 
   <div class="price loading" id="btcPrice">LOADING</div>
 
-  <div class="range">
-    <span>24H LOW<br><b id="btcLow">--</b></span>
-    <span style="text-align:right">24H HIGH<br><b id="btcHigh">--</b></span>
+  <div class="asset-stats">
+    <div class="mini-stat">24H LOW<b id="btcLow">--</b></div>
+    <div class="mini-stat">24H HIGH<b id="btcHigh">--</b></div>
+    <div class="mini-stat">MARKET CAP<b id="btcCap">--</b></div>
+    <div class="mini-stat">24H VOLUME<b id="btcVolume">--</b></div>
   </div>
 </div>
 
 <div class="card asset">
   <div class="asset-top">
+
     <div class="coin">
       <div class="coin-icon">Ξ</div>
       <div>
@@ -742,19 +990,23 @@ body:before{
         <div class="coin-name">Ethereum</div>
       </div>
     </div>
+
     <div id="ethChange" class="change flat">--</div>
   </div>
 
   <div class="price loading" id="ethPrice">LOADING</div>
 
-  <div class="range">
-    <span>24H LOW<br><b id="ethLow">--</b></span>
-    <span style="text-align:right">24H HIGH<br><b id="ethHigh">--</b></span>
+  <div class="asset-stats">
+    <div class="mini-stat">24H LOW<b id="ethLow">--</b></div>
+    <div class="mini-stat">24H HIGH<b id="ethHigh">--</b></div>
+    <div class="mini-stat">MARKET CAP<b id="ethCap">--</b></div>
+    <div class="mini-stat">24H VOLUME<b id="ethVolume">--</b></div>
   </div>
 </div>
 
 <div class="card asset">
   <div class="asset-top">
+
     <div class="coin">
       <div class="coin-icon">◎</div>
       <div>
@@ -762,14 +1014,17 @@ body:before{
         <div class="coin-name">Solana</div>
       </div>
     </div>
+
     <div id="solChange" class="change flat">--</div>
   </div>
 
   <div class="price loading" id="solPrice">LOADING</div>
 
-  <div class="range">
-    <span>24H LOW<br><b id="solLow">--</b></span>
-    <span style="text-align:right">24H HIGH<br><b id="solHigh">--</b></span>
+  <div class="asset-stats">
+    <div class="mini-stat">24H LOW<b id="solLow">--</b></div>
+    <div class="mini-stat">24H HIGH<b id="solHigh">--</b></div>
+    <div class="mini-stat">MARKET CAP<b id="solCap">--</b></div>
+    <div class="mini-stat">24H VOLUME<b id="solVolume">--</b></div>
   </div>
 </div>
 
@@ -805,8 +1060,8 @@ body:before{
 </section>
 
 <div class="section-title">
-  <h2>THE TRENCH METER</h2>
-  <span>STONKERS MARKET TEMPERATURE</span>
+  <h2>MARKET PULSE</h2>
+  <span>THE TRENCH METER 2.0</span>
 </div>
 
 <section class="grid">
@@ -814,13 +1069,17 @@ body:before{
 <div class="card trench">
 
   <div class="trench-head">
+
     <div>
       <b>HOW BAD IS IT OUT THERE?</b>
+
       <div style="color:var(--muted);font-size:10px;margin-top:5px">
-        Composite of BTC, ETH & SOL 24H momentum + market sentiment
+        BTC + ETH + SOL momentum with broader sentiment
       </div>
     </div>
+
     <div class="badge" id="trenchBadge">CALCULATING</div>
+
   </div>
 
   <div class="meter">
@@ -837,65 +1096,163 @@ body:before{
 
   <div class="trench-score">
     <strong id="trenchScore">50</strong>
-    <span>OUT OF 100 • NOT A TRADING SIGNAL</span>
+    <span>OUT OF 100 • MARKET TEMPERATURE, NOT A TRADING SIGNAL</span>
+  </div>
+
+  <div class="pulse-reason" id="pulseReason">
+    Waiting for market data...
   </div>
 
 </div>
 
 <div class="card brief">
+
   <b>📡 FROM THE TRENCHES</b>
-  <div class="brief-lines" id="briefing">
+
+  <div id="briefing">
     <div class="brief-line">Establishing connection with the market...</div>
     <div class="brief-line">Degens currently unsupervised.</div>
     <div class="brief-line">Stand by.</div>
   </div>
+
 </div>
 
 </section>
 
 <div class="section-title">
   <h2>COMMUNITY TERMINAL</h2>
-  <span>DON'T JUST WATCH THE SCREEN</span>
+  <span>MAKE THE CALL</span>
 </div>
 
 <section class="grid">
 
 <div class="card vote">
-  <b>⚔️ BULLS VS BEARS</b>
+
+  <b>⚔️ 24H TRENCH CALL</b>
+
   <p style="color:var(--muted);font-size:12px">
-    Who owns the next 24 hours? Make the call.
+    What's your read on the next 24 hours?
   </p>
 
   <div class="vote-buttons">
-    <button class="vote-btn" id="bullButton" onclick="vote('bull')">🐂<br>BULLS</button>
-    <button class="vote-btn" id="bearButton" onclick="vote('bear')">🐻<br>BEARS</button>
+
+    <button class="vote-btn" id="bullButton" onclick="vote('bull')">
+      🐂<br>BULLISH
+    </button>
+
+    <button class="vote-btn" id="unsureButton" onclick="vote('unsure')">
+      🤷<br>NO DAMN IDEA
+    </button>
+
+    <button class="vote-btn" id="bearButton" onclick="vote('bear')">
+      🐻<br>BEARISH
+    </button>
+
   </div>
 
   <div class="vote-bar">
     <div class="bull-bar" id="bullBar"></div>
+    <div class="unsure-bar" id="unsureBar"></div>
     <div class="bear-bar" id="bearBar"></div>
   </div>
 
   <div class="vote-results">
-    <span>🐂 <b id="bullPct">50%</b></span>
-    <span>YOUR DEVICE'S TRENCH POLL</span>
-    <span><b id="bearPct">50%</b> 🐻</span>
+    <span>🐂 <b id="bullPct">34%</b></span>
+    <span>🤷 <b id="unsurePct">33%</b></span>
+    <span><b id="bearPct">33%</b> 🐻</span>
   </div>
+
+  <div class="local-note">
+    V2 POLL IS STORED ON YOUR DEVICE • SHARED COMMUNITY VOTING COMING LATER
+  </div>
+
 </div>
 
 <div class="card degen">
-  <b>🎰 THE DEGEN BUTTON</b>
+
+  <b>🎰 THE DEGEN TERMINAL</b>
+
   <p style="color:var(--muted);font-size:12px">
-    Absolutely no financial value. Consider yourself warned.
+    Absolutely no financial value. That's probably why you'll press it.
   </p>
 
-  <button class="degen-button" onclick="degen()">I'M FEELING DEGEN</button>
+  <button class="degen-button" onclick="degen()">
+    I'M FEELING DEGEN
+  </button>
 
   <div class="prompt" id="degenPrompt">
     Press the button. Nothing responsible happens here.
   </div>
 
-  <button class="share" onclick="sharePrompt()">SHARE TO X ↗</button>
+  <button class="action" style="margin-top:10px" onclick="sharePrompt()">
+    SHARE TO X ↗
+  </button>
+
+</div>
+
+</section>
+
+<div class="section-title">
+  <h2>TRENCH TOOLS</h2>
+  <span>DO THE MATH BEFORE THE DAMAGE</span>
+</div>
+
+<section class="grid">
+
+<div class="card calculator">
+
+  <b>🧮 TRENCH CALCULATOR</b>
+
+  <p style="color:var(--muted);font-size:12px;line-height:1.5">
+    Test a hypothetical market move. This is math — not a price prediction.
+  </p>
+
+  <div class="calc-grid">
+
+    <div class="field">
+      <label>STARTING VALUE ($)</label>
+      <input id="calcAmount" type="number" min="0" step="any" value="100">
+    </div>
+
+    <div class="field">
+      <label>HYPOTHETICAL MOVE (%)</label>
+      <input id="calcMove" type="number" step="any" value="10">
+    </div>
+
+  </div>
+
+  <div class="calc-result">
+
+    <small>RESULTING VALUE</small>
+    <strong id="calcFinal">$110.00</strong>
+
+    <small>
+      P/L:
+      <span id="calcPL" class="up">+$10.00</span>
+    </small>
+
+  </div>
+
+</div>
+
+<div class="card daily">
+
+  <b>🌙 DAILY CLOSE TERMINAL</b>
+
+  <p style="color:var(--muted);font-size:12px;line-height:1.5">
+    Turn the current desk into a ready-to-post STONKERS market recap.
+  </p>
+
+  <div class="close-output" id="dailyClose">
+    Waiting for market data before building tonight's briefing...
+  </div>
+
+  <div class="action-row">
+    <button class="action" onclick="generateDailyClose()">↻ REBUILD</button>
+    <button class="action" onclick="copyDailyClose()">COPY CLOSE</button>
+    <button class="action" onclick="shareDailyClose()">POST TO X ↗</button>
+  </div>
+
 </div>
 
 </section>
@@ -908,20 +1265,35 @@ body:before{
 <section class="grid">
 
 <div class="card emergency">
+
   <b>🚨 WALL STREET EMERGENCY</b>
 
-  <div class="emergency-box">
-    <div class="emergency-status">● NO ACTIVE EMERGENCY</div>
-    <p>
-      The trenches are suspiciously quiet. Major market alerts will appear here when activated by STONKERS.
+  <div class="emergency-box" id="emergencyBox">
+
+    <div class="emergency-status" id="emergencyStatus">
+      ● MONITORING
+    </div>
+
+    <p id="emergencyText">
+      Market Desk is watching the Big Three for unusually large 24-hour moves.
+      No active emergency detected.
     </p>
+
   </div>
+
+  <div style="color:var(--muted);font-size:9px;margin-top:12px;line-height:1.5">
+    V2 WEB ALERTS ARE RULE-BASED AND ONLY RUN WHILE THIS PAGE IS ACTIVE.
+    THE SERVER-SIDE TELEGRAM EMERGENCY ENGINE WILL BE A SEPARATE SYSTEM.
+  </div>
+
 </div>
 
 <div class="card today">
+
   <b>🏆 TODAY IN THE TRENCHES</b>
 
   <div style="margin-top:15px">
+
     <div class="today-row">
       <span>Strongest</span>
       <b id="strongest">--</b>
@@ -938,23 +1310,86 @@ body:before{
     </div>
 
     <div class="today-row">
+      <span>Average Move</span>
+      <b id="averageMove">--</b>
+    </div>
+
+    <div class="today-row">
       <span>Market Mood</span>
       <b id="mood">--</b>
     </div>
+
   </div>
+
 </div>
 
 </section>
 
+<div class="section-title">
+  <h2>STONKERS NETWORK</h2>
+  <span>THE REST OF THE TRENCHES</span>
+</div>
+
+<section class="grid">
+
+<a class="card network-card"
+   href="https://stonkersarmy.carrd.co"
+   target="_blank"
+   rel="noopener">
+
+  <div class="network-icon">🐂</div>
+  <b>STONKERS HQ</b>
+  <span>The main STONKERS website and project hub.</span>
+
+</a>
+
+<a class="card network-card"
+   href="#"
+   id="memeLabLink"
+   onclick="networkPlaceholder(event,'Meme Lab')">
+
+  <div class="network-icon">🎨</div>
+  <b>MEME LAB</b>
+  <span>Build something terrible enough to make the Army proud.</span>
+
+</a>
+
+<a class="card network-card"
+   href="#"
+   id="telegramLink"
+   onclick="networkPlaceholder(event,'Telegram')">
+
+  <div class="network-icon">✈️</div>
+  <b>TELEGRAM</b>
+  <span>Enter the STONKERS community.</span>
+
+</a>
+
+<a class="card network-card"
+   href="#"
+   id="xLink"
+   onclick="networkPlaceholder(event,'X')">
+
+  <div class="network-icon">𝕏</div>
+  <b>STONKERS ON X</b>
+  <span>Market posts, Daily Close and dispatches from the trenches.</span>
+
+</a>
+
+</section>
+
 <footer class="footer">
+
   <strong>STONKERS MARKET DESK</strong><br>
   BUILT FROM ZERO. NO SURRENDER. NO RETREAT.<br><br>
 
-  Market information is provided for informational and entertainment purposes only and may be delayed or unavailable.
-  STONKERS Market Desk does not provide financial advice or trading signals.
-  Always verify market information independently before making financial decisions.<br><br>
+  Market information is provided for informational and entertainment purposes only
+  and may be delayed or unavailable. STONKERS Market Desk does not provide
+  financial advice, trading signals or guaranteed market information.
+  Always verify market data independently before making financial decisions.<br><br>
 
-  Market data powered by public CoinGecko endpoints where available.
+  Public market data powered by CoinGecko and Alternative.me where available.
+
 </footer>
 
 </main>
@@ -962,26 +1397,40 @@ body:before{
 <script>
 const coins = {};
 let fearGreed = 50;
+let fearGreedAvailable = false;
 let currentPrompt = "";
 let secretClicks = 0;
+let trenchScore = 50;
 
 const $ = id => document.getElementById(id);
 
 function money(n){
-  if(n === undefined || n === null) return "--";
+  if(n === undefined || n === null || Number.isNaN(Number(n))) return "--";
+
+  n = Number(n);
 
   if(n >= 1e12) return "$" + (n/1e12).toFixed(2) + "T";
   if(n >= 1e9) return "$" + (n/1e9).toFixed(2) + "B";
   if(n >= 1e6) return "$" + (n/1e6).toFixed(2) + "M";
 
-  return "$" + Number(n).toLocaleString(undefined,{
+  return "$" + n.toLocaleString(undefined,{
     maximumFractionDigits:n < 10 ? 4 : 2
   });
 }
 
+function exactMoney(n){
+  if(n === undefined || n === null || Number.isNaN(Number(n))) return "--";
+
+  return "$" + Number(n).toLocaleString(undefined,{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
+
 function pct(n){
-  if(n === undefined || n === null) return "--";
-  return (n >= 0 ? "+" : "") + Number(n).toFixed(2) + "%";
+  if(n === undefined || n === null || Number.isNaN(Number(n))) return "--";
+
+  return (Number(n) >= 0 ? "+" : "") + Number(n).toFixed(2) + "%";
 }
 
 function changeStyle(el,n){
@@ -989,9 +1438,22 @@ function changeStyle(el,n){
   el.classList.add(n > 0 ? "up" : n < 0 ? "down" : "flat");
 }
 
+function setFeed(state,text){
+
+  const dot = $("feedDot");
+
+  dot.classList.remove("live","offline");
+
+  if(state === "live") dot.classList.add("live");
+  if(state === "offline") dot.classList.add("offline");
+
+  $("feedStatus").textContent = text;
+}
+
 async function loadMarkets(){
 
   $("updated").textContent = "LAST UPDATE: CONNECTING...";
+  setFeed("connecting","CONNECTING");
 
   try{
 
@@ -1002,16 +1464,22 @@ async function loadMarkets(){
       "https://api.coingecko.com/api/v3/global";
 
     const [coinRes,globalRes] = await Promise.all([
-      fetch(coinURL),
-      fetch(globalURL)
+      fetch(coinURL,{cache:"no-store"}),
+      fetch(globalURL,{cache:"no-store"})
     ]);
 
-    if(!coinRes.ok || !globalRes.ok) throw new Error("Market feed unavailable");
+    if(!coinRes.ok || !globalRes.ok)
+      throw new Error("Market feed unavailable");
 
     const coinData = await coinRes.json();
     const globalData = await globalRes.json();
 
-    coinData.forEach(c => coins[c.symbol.toLowerCase()] = c);
+    coinData.forEach(c=>{
+      coins[c.symbol.toLowerCase()] = c;
+    });
+
+    if(!coins.btc || !coins.eth || !coins.sol)
+      throw new Error("Incomplete market response");
 
     renderCoin("btc",coins.btc);
     renderCoin("eth",coins.eth);
@@ -1019,9 +1487,16 @@ async function loadMarkets(){
 
     const global = globalData.data;
 
-    $("marketCap").textContent = money(global.total_market_cap.usd);
-    $("volume").textContent = money(global.total_volume.usd);
-    $("dominance").textContent = global.market_cap_percentage.btc.toFixed(1) + "%";
+    $("marketCap").textContent =
+      money(global.total_market_cap?.usd);
+
+    $("volume").textContent =
+      money(global.total_volume?.usd);
+
+    $("dominance").textContent =
+      global.market_cap_percentage?.btc !== undefined
+        ? Number(global.market_cap_percentage.btc).toFixed(1) + "%"
+        : "--";
 
     await loadFearGreed();
 
@@ -1029,6 +1504,8 @@ async function loadMarkets(){
     updateBriefing();
     updateToday();
     updateTicker();
+    updateEmergency();
+    generateDailyClose();
 
     const now = new Date();
 
@@ -1039,11 +1516,16 @@ async function loadMarkets(){
         minute:"2-digit"
       });
 
+    setFeed("live","MARKET FEED LIVE");
+
   }catch(err){
 
     console.error(err);
 
-    $("updated").textContent = "MARKET FEED TEMPORARILY UNAVAILABLE";
+    setFeed("offline","FEED OFFLINE");
+
+    $("updated").textContent =
+      "MARKET FEED TEMPORARILY UNAVAILABLE";
 
     document.querySelectorAll(".loading").forEach(el=>{
       el.textContent="FEED OFFLINE";
@@ -1072,48 +1554,62 @@ function renderCoin(prefix,c){
 
   $(prefix+"Low").textContent = money(c.low_24h);
   $(prefix+"High").textContent = money(c.high_24h);
+  $(prefix+"Cap").textContent = money(c.market_cap);
+  $(prefix+"Volume").textContent = money(c.total_volume);
 }
 
 async function loadFearGreed(){
 
   try{
 
-    const r = await fetch("https://api.alternative.me/fng/?limit=1");
+    const r =
+      await fetch("https://api.alternative.me/fng/?limit=1",{
+        cache:"no-store"
+      });
 
-    if(!r.ok) throw new Error();
+    if(!r.ok) throw new Error("Sentiment unavailable");
 
     const d = await r.json();
 
     fearGreed = Number(d.data[0].value);
+    fearGreedAvailable = true;
 
     $("fearGreed").innerHTML =
-      fearGreed + '<span style="font-size:10px;color:var(--muted)"> / 100</span>';
+      fearGreed +
+      '<span style="font-size:10px;color:var(--muted)"> / 100</span>';
 
-  }catch{
+  }catch(err){
 
     fearGreed = 50;
+    fearGreedAvailable = false;
+
     $("fearGreed").textContent = "Unavailable";
   }
 }
 
+function getAverageMove(){
+
+  if(!coins.btc || !coins.eth || !coins.sol) return 0;
+
+  return (
+    Number(coins.btc.price_change_percentage_24h || 0) +
+    Number(coins.eth.price_change_percentage_24h || 0) +
+    Number(coins.sol.price_change_percentage_24h || 0)
+  ) / 3;
+}
+
 function updateTrenchMeter(){
 
-  if(!coins.btc || !coins.eth || !coins.sol) return;
-
-  const momentum =
-    (
-      coins.btc.price_change_percentage_24h +
-      coins.eth.price_change_percentage_24h +
-      coins.sol.price_change_percentage_24h
-    ) / 3;
+  const momentum = getAverageMove();
 
   let score = 50 + momentum * 4;
 
-  if($("fearGreed").textContent !== "Unavailable"){
+  if(fearGreedAvailable){
     score = score * .65 + fearGreed * .35;
   }
 
   score = Math.max(3,Math.min(97,score));
+  trenchScore = score;
 
   $("needle").style.left = score + "%";
   $("trenchScore").textContent = Math.round(score);
@@ -1128,32 +1624,50 @@ function updateTrenchMeter(){
 
   $("trenchBadge").textContent = label;
   $("mood").textContent = label;
+
+  let reason =
+    "Big Three average: " + pct(momentum);
+
+  if(fearGreedAvailable){
+    reason += " • Fear & Greed: " + fearGreed + "/100";
+  }else{
+    reason += " • External sentiment feed unavailable";
+  }
+
+  $("pulseReason").textContent = reason;
 }
 
 function updateBriefing(){
 
-  if(!coins.btc) return;
+  if(!coins.btc || !coins.eth || !coins.sol) return;
 
   const arr = [
-    {name:"BTC",v:coins.btc.price_change_percentage_24h},
-    {name:"ETH",v:coins.eth.price_change_percentage_24h},
-    {name:"SOL",v:coins.sol.price_change_percentage_24h}
+    {name:"BTC",v:Number(coins.btc.price_change_percentage_24h || 0)},
+    {name:"ETH",v:Number(coins.eth.price_change_percentage_24h || 0)},
+    {name:"SOL",v:Number(coins.sol.price_change_percentage_24h || 0)}
   ];
 
   arr.sort((a,b)=>b.v-a.v);
 
-  let lines=[];
+  const lines=[];
 
-  if(arr[0].v > 2)
-    lines.push(arr[0].name + " is making noise. The trenches noticed.");
+  if(arr[0].v > 3){
+    lines.push(arr[0].name +
+      " is making serious noise at " + pct(arr[0].v) + ".");
+  }
 
-  else if(arr[0].v > 0)
-    lines.push(arr[0].name + " is leading the Big Three today.");
+  else if(arr[0].v > 0){
+    lines.push(arr[0].name +
+      " currently leads the Big Three at " + pct(arr[0].v) + ".");
+  }
 
-  else
-    lines.push("Nobody brought the green candles. All three are under pressure.");
+  else{
+    lines.push(
+      "Nobody brought the green candles. All three are under pressure."
+    );
+  }
 
-  const avg = arr.reduce((a,b)=>a+b.v,0)/3;
+  const avg = getAverageMove();
 
   if(avg > 3)
     lines.push("Momentum is hot. Somebody hide the leverage.");
@@ -1170,14 +1684,29 @@ function updateBriefing(){
   else
     lines.push("Market is chopping. Patience is doing overtime.");
 
-  if(fearGreed >= 75)
-    lines.push("Sentiment is euphoric. That's usually when everybody suddenly becomes a genius.");
+  if(fearGreedAvailable){
 
-  else if(fearGreed <= 25)
-    lines.push("Fear is heavy. The trenches are checking their wallets twice.");
+    if(fearGreed >= 75)
+      lines.push(
+        "Sentiment is euphoric. Everybody has suddenly become a market genius."
+      );
 
-  else
-    lines.push("Sentiment isn't at an extreme. Degens remain unsupervised.");
+    else if(fearGreed <= 25)
+      lines.push(
+        "Fear is heavy. The trenches are checking their wallets twice."
+      );
+
+    else
+      lines.push(
+        "Sentiment isn't at an extreme. Degens remain unsupervised."
+      );
+
+  }else{
+
+    lines.push(
+      "External sentiment feed is unavailable, so the desk is leaning on price momentum."
+    );
+  }
 
   $("briefing").innerHTML =
     lines.map(x=>'<div class="brief-line">'+x+'</div>').join("");
@@ -1185,72 +1714,249 @@ function updateBriefing(){
 
 function updateToday(){
 
+  if(!coins.btc || !coins.eth || !coins.sol) return;
+
   const arr = [
-    {name:"BTC",v:coins.btc.price_change_percentage_24h},
-    {name:"ETH",v:coins.eth.price_change_percentage_24h},
-    {name:"SOL",v:coins.sol.price_change_percentage_24h}
+    {name:"BTC",v:Number(coins.btc.price_change_percentage_24h || 0)},
+    {name:"ETH",v:Number(coins.eth.price_change_percentage_24h || 0)},
+    {name:"SOL",v:Number(coins.sol.price_change_percentage_24h || 0)}
   ];
 
-  const sorted=[...arr].sort((a,b)=>b.v-a.v);
-  const swing=[...arr].sort((a,b)=>Math.abs(b.v)-Math.abs(a.v))[0];
+  const sorted =
+    [...arr].sort((a,b)=>b.v-a.v);
 
-  $("strongest").textContent = sorted[0].name + " " + pct(sorted[0].v);
-  $("weakest").textContent = sorted[2].name + " " + pct(sorted[2].v);
-  $("swing").textContent = swing.name + " " + pct(swing.v);
+  const swing =
+    [...arr].sort((a,b)=>Math.abs(b.v)-Math.abs(a.v))[0];
+
+  $("strongest").textContent =
+    sorted[0].name + " " + pct(sorted[0].v);
+
+  $("weakest").textContent =
+    sorted[2].name + " " + pct(sorted[2].v);
+
+  $("swing").textContent =
+    swing.name + " " + pct(swing.v);
+
+  $("averageMove").textContent =
+    pct(getAverageMove());
 }
 
 function updateTicker(){
 
+  if(!coins.btc || !coins.eth || !coins.sol) return;
+
   $("ticker").textContent =
-    "BTC " + money(coins.btc.current_price) + " " + pct(coins.btc.price_change_percentage_24h) +
-    " • ETH " + money(coins.eth.current_price) + " " + pct(coins.eth.price_change_percentage_24h) +
-    " • SOL " + money(coins.sol.current_price) + " " + pct(coins.sol.price_change_percentage_24h) +
-    " • STONKERS MARKET DESK • BUILT FROM ZERO • NO SURRENDER • NO RETREAT •";
+    "BTC " + money(coins.btc.current_price) +
+    " " + pct(coins.btc.price_change_percentage_24h) +
+
+    " • ETH " + money(coins.eth.current_price) +
+    " " + pct(coins.eth.price_change_percentage_24h) +
+
+    " • SOL " + money(coins.sol.current_price) +
+    " " + pct(coins.sol.price_change_percentage_24h) +
+
+    " • STONKERS MARKET DESK" +
+    " • BUILT FROM ZERO" +
+    " • NO SURRENDER" +
+    " • NO RETREAT •";
 }
+
+/* LOCAL SENTIMENT */
 
 function vote(side){
 
-  let bulls=Number(localStorage.getItem("stonkersBulls") || 50);
-  let bears=Number(localStorage.getItem("stonkersBears") || 50);
-
-  const previous=localStorage.getItem("stonkersVote");
-
-  if(previous){
-    if(previous==="bull") bulls--;
-    else bears--;
-  }
-
-  if(side==="bull") bulls++;
-  else bears++;
-
-  localStorage.setItem("stonkersBulls",bulls);
-  localStorage.setItem("stonkersBears",bears);
-  localStorage.setItem("stonkersVote",side);
-
+  localStorage.setItem("stonkersVoteV2",side);
   renderVote();
 }
 
 function renderVote(){
 
-  let bulls=Number(localStorage.getItem("stonkersBulls") || 50);
-  let bears=Number(localStorage.getItem("stonkersBears") || 50);
+  const choice =
+    localStorage.getItem("stonkersVoteV2");
 
-  const total=bulls+bears;
+  /*
+    These percentages are deliberately only a UI representation
+    of the visitor's local choice, not fake global vote counts.
+  */
 
-  const bp=Math.round(bulls/total*100);
-  const br=100-bp;
+  let bull=34;
+  let unsure=33;
+  let bear=33;
 
-  $("bullBar").style.width=bp+"%";
-  $("bearBar").style.width=br+"%";
+  if(choice==="bull"){
+    bull=50;
+    unsure=25;
+    bear=25;
+  }
 
-  $("bullPct").textContent=bp+"%";
-  $("bearPct").textContent=br+"%";
+  if(choice==="unsure"){
+    bull=25;
+    unsure=50;
+    bear=25;
+  }
 
-  const choice=localStorage.getItem("stonkersVote");
+  if(choice==="bear"){
+    bull=25;
+    unsure=25;
+    bear=50;
+  }
 
-  $("bullButton").classList.toggle("selected",choice==="bull");
-  $("bearButton").classList.toggle("selected",choice==="bear");
+  $("bullBar").style.width=bull+"%";
+  $("unsureBar").style.width=unsure+"%";
+  $("bearBar").style.width=bear+"%";
+
+  $("bullPct").textContent=bull+"%";
+  $("unsurePct").textContent=unsure+"%";
+  $("bearPct").textContent=bear+"%";
+
+  $("bullButton").classList.toggle(
+    "selected",choice==="bull"
+  );
+
+  $("unsureButton").classList.toggle(
+    "selected",choice==="unsure"
+  );
+
+  $("bearButton").classList.toggle(
+    "selected",choice==="bear"
+  );
 }
+
+/* CALCULATOR */
+
+function calculate(){
+
+  const amount =
+    Number($("calcAmount").value || 0);
+
+  const move =
+    Number($("calcMove").value || 0);
+
+  const pl =
+    amount * (move/100);
+
+  const final =
+    amount + pl;
+
+  $("calcFinal").textContent =
+    exactMoney(final);
+
+  $("calcPL").textContent =
+    (pl >= 0 ? "+" : "-") +
+    exactMoney(Math.abs(pl));
+
+  changeStyle($("calcPL"),pl);
+}
+
+$("calcAmount").addEventListener("input",calculate);
+$("calcMove").addEventListener("input",calculate);
+
+/* DAILY CLOSE */
+
+function generateDailyClose(){
+
+  if(!coins.btc || !coins.eth || !coins.sol){
+    $("dailyClose").textContent =
+      "Waiting for market data before building tonight's briefing...";
+    return;
+  }
+
+  let condition;
+
+  if(trenchScore < 20) condition="The trenches are getting smoked.";
+  else if(trenchScore < 40) condition="Bears have control of the desk.";
+  else if(trenchScore < 60) condition="Chop rules the trenches.";
+  else if(trenchScore < 80) condition="Bulls have the advantage.";
+  else condition="The market is running hot.";
+
+  const text =
+`STONKERS DAILY CLOSE 🪖
+
+BTC ${money(coins.btc.current_price)} | ${pct(coins.btc.price_change_percentage_24h)}
+ETH ${money(coins.eth.current_price)} | ${pct(coins.eth.price_change_percentage_24h)}
+SOL ${money(coins.sol.current_price)} | ${pct(coins.sol.price_change_percentage_24h)}
+
+Trench Meter: ${Math.round(trenchScore)}/100
+${condition}
+
+Built From Zero.
+No Surrender. No Retreat.`;
+
+  $("dailyClose").textContent=text;
+}
+
+async function copyDailyClose(){
+
+  const text=$("dailyClose").textContent;
+
+  try{
+    await navigator.clipboard.writeText(text);
+    showToast("DAILY CLOSE COPIED");
+  }catch{
+    showToast("COPY FAILED");
+  }
+}
+
+function shareDailyClose(){
+
+  const text=$("dailyClose").textContent;
+
+  window.open(
+    "https://twitter.com/intent/tweet?text="+
+    encodeURIComponent(text),
+    "_blank",
+    "noopener"
+  );
+}
+
+/* EMERGENCY */
+
+function updateEmergency(){
+
+  if(!coins.btc || !coins.eth || !coins.sol) return;
+
+  const arr = [
+    {name:"BTC",v:Number(coins.btc.price_change_percentage_24h || 0)},
+    {name:"ETH",v:Number(coins.eth.price_change_percentage_24h || 0)},
+    {name:"SOL",v:Number(coins.sol.price_change_percentage_24h || 0)}
+  ];
+
+  const extreme =
+    [...arr].sort(
+      (a,b)=>Math.abs(b.v)-Math.abs(a.v)
+    )[0];
+
+  const box=$("emergencyBox");
+
+  if(Math.abs(extreme.v) >= 8){
+
+    box.classList.add("alert");
+
+    $("emergencyStatus").textContent =
+      "● MARKET MOVE DETECTED";
+
+    $("emergencyText").textContent =
+      extreme.name +
+      " has moved " +
+      pct(extreme.v) +
+      " over the current 24-hour window. " +
+      "This crosses the Market Desk V2 web-alert threshold. " +
+      "Verify conditions independently before reacting.";
+
+  }else{
+
+    box.classList.remove("alert");
+
+    $("emergencyStatus").textContent =
+      "● NO ACTIVE EMERGENCY";
+
+    $("emergencyText").textContent =
+      "Market Desk is watching BTC, ETH and SOL for unusually large 24-hour moves. " +
+      "No V2 emergency threshold is currently active.";
+  }
+}
+
+/* DEGEN TERMINAL */
 
 const prompts=[
   "BTC drops 8% while you're asleep. What's the first thing you check?",
@@ -1272,24 +1978,58 @@ const prompts=[
 
 function degen(){
 
-  currentPrompt=prompts[Math.floor(Math.random()*prompts.length)];
+  currentPrompt =
+    prompts[Math.floor(Math.random()*prompts.length)];
 
   $("degenPrompt").textContent=currentPrompt;
 }
 
 function sharePrompt(){
 
-  if(!currentPrompt)
-    currentPrompt="I'm at the STONKERS Market Desk and apparently financial responsibility has left the building.";
+  if(!currentPrompt){
+
+    currentPrompt =
+      "I'm at the STONKERS Market Desk and apparently financial responsibility has left the building.";
+  }
 
   const text =
     currentPrompt +
-    "\n\nLive from the trenches. 🪖\n#STONKERS";
+    "\n\nLive from the trenches. 🪖\n$STNKS";
 
   window.open(
-    "https://twitter.com/intent/tweet?text="+encodeURIComponent(text),
-    "_blank"
+    "https://twitter.com/intent/tweet?text="+
+    encodeURIComponent(text),
+    "_blank",
+    "noopener"
   );
+}
+
+/* NETWORK */
+
+function networkPlaceholder(event,name){
+
+  event.preventDefault();
+
+  showToast(
+    name.toUpperCase() +
+    " LINK GETS CONNECTED BEFORE LAUNCH"
+  );
+}
+
+/* UTILITIES */
+
+function showToast(message){
+
+  const toast=$("toast");
+
+  toast.textContent=message;
+  toast.classList.add("show");
+
+  clearTimeout(showToast.timer);
+
+  showToast.timer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },1800);
 }
 
 function clock(){
@@ -1302,6 +2042,8 @@ function clock(){
 
 setInterval(clock,1000);
 clock();
+
+/* SECRET BULL */
 
 $("secretBull").addEventListener("click",()=>{
 
@@ -1322,7 +2064,10 @@ function closeDegenMode(){
   document.body.classList.remove("degen-mode");
 }
 
+/* STARTUP */
+
 renderVote();
+calculate();
 loadMarkets();
 
 setInterval(loadMarkets,120000);
