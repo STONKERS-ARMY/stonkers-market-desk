@@ -94,7 +94,7 @@ function pct(n){if(n===undefined||n===null||Number.isNaN(Number(n)))return"--";r
 function changeStyle(el,n){el.classList.remove("up","down","flat");el.classList.add(n>0?"up":n<0?"down":"flat")}  
 function setFeed(state,text){const dot=$("feedDot");dot.classList.remove("live","offline","partial","stale");if(["live","offline","partial","stale"].includes(state))dot.classList.add(state);$("feedStatus").textContent=text}  
 // V2.2: Independent, bounded, validated public market feeds.
-const COIN_URL="https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana&order=market_cap_desc&sparkline=false&price_change_percentage=24h";
+const COIN_URL="https://api.coingecko.com/invalid-test-endpoint";
 const GLOBAL_URL="https://api.coingecko.com/api/v3/global";
 const FNG_URL="https://api.alternative.me/fng/?limit=1";
 const STALE_AFTER_MS=5*60*1000;
