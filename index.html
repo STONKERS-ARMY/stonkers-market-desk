@@ -174,8 +174,52 @@ async function getBackupVolume(){
     return Number.isFinite(v)&&Number.isFinite(cap)&&v>0&&cap>0&&v<cap*2?v:null;
   }catch(e){console.warn("Backup volume unavailable",e);return null}
 }
+
+async function getBackupCoins(){
+  const ids = [
+    ["btc", "btc-bitcoin"],
+    ["eth", "eth-ethereum"],
+    ["sol", "sol-solana"]
+  ];
+
+  const entries = await Promise.all(ids.map(async ([key, id]) => {
+    const d = await fetchJSON(
+      "https://api.coinpaprika.com/v1/tickers/" + id,
+      {timeout:6500,retries:0}
+    );
+    const q = d?.quotes?.USD;
+    const price = Number(q?.price);
+    const change = Number(q?.percent_change_24h);
+
+    if (!Number.isFinite(price) || price <= 0 ||
+        !Number.isFinite(change)) {
+      throw new Error("Invalid backup price for " + key);
+    }
+
+    return [key, {
+      current_price: price,
+      price_change_percentage_24h: change,
+      low_24h: q.low_24h ?? null,
+      high_24h: q.high_24h ?? null,
+      market_cap: q.market_cap ?? null,
+      total_volume: q.volume_24h ?? null
+    }];
+  }));
+
+  return Object.fromEntries(entries);
+}
+
+  
 async function refreshCoins(){
-  const data=validateCoins(await fetchJSON(COIN_URL));
+  
+let data;
+try {
+  data = validateCoins(await fetchJSON(COIN_URL));
+} catch (error) {
+  console.warn("CoinGecko unavailable. Trying CoinPaprika backup.", error);
+  data = await getBackupCoins();
+}
+
   Object.assign(coins,data);
   for(const key of ["btc","eth","sol"])renderCoin(key,coins[key]);
   feedTimes.coins=Date.now();
