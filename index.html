@@ -17,7 +17,7 @@ button,input{font:inherit}.wrap{width:min(1220px,94%);margin:auto}
 .logo{width:43px;height:43px;border:1px solid var(--green);border-radius:12px;display:grid;place-items:center;font-size:25px;background:#09110a;box-shadow:0 0 22px rgba(57,255,20,.16)}  
 .brand strong{display:block;letter-spacing:2px;font-size:15px}.brand small{color:var(--green);letter-spacing:2px;font-size:9px}  
 .status{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}.dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}  
-.dot.live{background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 1.8s infinite}.dot.offline{background:var(--red);box-shadow:0 0 12px var(--red)}@keyframes pulse{50%{opacity:.35}}  
+.dot.partial{background:var(--amber);box-shadow:0 0 12px var(--amber)}.dot.stale{background:var(--amber);box-shadow:0 0 12px var(--amber)}.dot.live{background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 1.8s infinite}.dot.offline{background:var(--red);box-shadow:0 0 12px var(--red)}@keyframes pulse{50%{opacity:.35}}  
 .ticker{overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--line);background:rgba(8,12,9,.95);color:#b8c8bc;font-size:11px;letter-spacing:.7px}  
 .ticker-track{display:inline-block;padding:10px 0;min-width:100%;animation:scroll 34s linear infinite}@keyframes scroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}  
 .hero{text-align:center;padding:72px 0 42px}.eyebrow{color:var(--green);letter-spacing:4px;font-size:11px;font-weight:900}  
@@ -69,14 +69,14 @@ button,input{font:inherit}.wrap{width:min(1220px,94%);margin:auto}
 </section>  
 <div class="section-title"><h2>MARKET INTELLIGENCE</h2><span>NUMBERS BEFORE NARRATIVES</span></div>  
 <section class="grid"><div class="card stat"><label>Total Crypto Market Cap</label><strong id="marketCap">--</strong></div><div class="card stat"><label>24H Market Volume</label><strong id="volume">--</strong><small style="display:block;color:#8da091;font-size:10px;margin-top:5px">Source: CoinPaprika (backup)</small></div><div class="card stat"><label>BTC Dominance</label><strong id="dominance">--</strong></div><div class="card stat"><label>Fear & Greed</label><strong id="fearGreed">--</strong></div></section>  
-<div class="section-title"><h2>MARKET PULSE</h2><span>THE TRENCH METER 2.1</span></div>  
+<div class="section-title"><h2>MARKET PULSE</h2><span>THE TRENCH METER 2.2</span></div>  
 <section class="grid"><div class="card trench"><div class="trench-head"><div><b>HOW BAD IS IT OUT THERE?</b><div style="color:var(--muted);font-size:10px;margin-top:5px">BTC + ETH + SOL momentum with broader sentiment</div></div><div class="badge" id="trenchBadge">CALCULATING</div></div><div class="meter"><div class="needle" id="needle"></div></div><div class="meter-labels"><span>☠ REKT</span><span>BLOOD</span><span>CHOP</span><span>BULLISH</span><span>EUPHORIA 🚀</span></div><div class="trench-score"><strong id="trenchScore">50</strong><span>OUT OF 100 • MARKET TEMPERATURE, NOT A TRADING SIGNAL</span></div><div class="pulse-reason" id="pulseReason">Waiting for market data...</div></div><div class="card brief"><b>📡 FROM THE TRENCHES</b><div id="briefing"><div class="brief-line">Establishing connection with the market...</div><div class="brief-line">Degens currently unsupervised.</div><div class="brief-line">Stand by.</div></div></div></section>  
 <div class="section-title"><h2>COMMUNITY TERMINAL</h2><span>MAKE THE CALL</span></div>  
-<section class="grid"><div class="card vote"><b>⚔️ 24H TRENCH CALL</b><p style="color:var(--muted);font-size:12px">What's your read on the next 24 hours?</p><div class="vote-buttons"><button class="vote-btn" id="bullButton" onclick="vote('bull')">🐂<br>BULLISH</button><button class="vote-btn" id="unsureButton" onclick="vote('unsure')">🤷<br>NO DAMN IDEA</button><button class="vote-btn" id="bearButton" onclick="vote('bear')">🐻<br>BEARISH</button></div><div class="vote-bar"><div class="bull-bar" id="bullBar"></div><div class="unsure-bar" id="unsureBar"></div><div class="bear-bar" id="bearBar"></div></div><div class="vote-results"><span>🐂 <b id="bullPct">34%</b></span><span>🤷 <b id="unsurePct">33%</b></span><span><b id="bearPct">33%</b> 🐻</span></div><div class="local-note">V2.1 POLL IS STORED ON YOUR DEVICE • SHARED COMMUNITY VOTING COMING LATER</div></div><div class="card degen"><b>🎰 THE DEGEN TERMINAL</b><p style="color:var(--muted);font-size:12px">Absolutely no financial value. That's probably why you'll press it.</p><button class="degen-button" onclick="degen()">I'M FEELING DEGEN</button><div class="prompt" id="degenPrompt">Press the button. Nothing responsible happens here.</div><button class="action" style="margin-top:10px" onclick="sharePrompt()">SHARE TO X ↗</button></div></section>  
+<section class="grid"><div class="card vote"><b>⚔️ 24H TRENCH CALL</b><p style="color:var(--muted);font-size:12px">What's your read on the next 24 hours?</p><div class="vote-buttons"><button class="vote-btn" id="bullButton" onclick="vote('bull')">🐂<br>BULLISH</button><button class="vote-btn" id="unsureButton" onclick="vote('unsure')">🤷<br>NO DAMN IDEA</button><button class="vote-btn" id="bearButton" onclick="vote('bear')">🐻<br>BEARISH</button></div><div class="vote-bar"><div class="bull-bar" id="bullBar"></div><div class="unsure-bar" id="unsureBar"></div><div class="bear-bar" id="bearBar"></div></div><div class="vote-results"><span>🐂 <b id="bullPct">34%</b></span><span>🤷 <b id="unsurePct">33%</b></span><span><b id="bearPct">33%</b> 🐻</span></div><div class="local-note">V2.2 POLL IS STORED ON YOUR DEVICE • SHARED COMMUNITY VOTING COMING LATER</div></div><div class="card degen"><b>🎰 THE DEGEN TERMINAL</b><p style="color:var(--muted);font-size:12px">Absolutely no financial value. That's probably why you'll press it.</p><button class="degen-button" onclick="degen()">I'M FEELING DEGEN</button><div class="prompt" id="degenPrompt">Press the button. Nothing responsible happens here.</div><button class="action" style="margin-top:10px" onclick="sharePrompt()">SHARE TO X ↗</button></div></section>  
 <div class="section-title"><h2>TRENCH TOOLS</h2><span>DO THE MATH BEFORE THE DAMAGE</span></div>  
 <section class="grid"><div class="card calculator"><b>🧮 TRENCH CALCULATOR</b><p style="color:var(--muted);font-size:12px;line-height:1.5">Test a hypothetical market move. This is math — not a price prediction.</p><div class="calc-grid"><div class="field"><label>STARTING VALUE ($)</label><input id="calcAmount" type="number" min="0" step="any" value="100"></div><div class="field"><label>HYPOTHETICAL MOVE (%)</label><input id="calcMove" type="number" step="any" value="10"></div></div><div class="calc-result"><small>RESULTING VALUE</small><strong id="calcFinal">$110.00</strong><small>P/L: <span id="calcPL" class="up">+$10.00</span></small></div></div><div class="card daily"><b>🌙 DAILY CLOSE TERMINAL</b><p style="color:var(--muted);font-size:12px;line-height:1.5">Turn the current desk into a ready-to-post STONKERS market recap.</p><div class="close-output" id="dailyClose">Waiting for market data before building tonight's briefing...</div><div class="action-row"><button class="action" onclick="generateDailyClose()">↻ REBUILD</button><button class="action" onclick="copyDailyClose()">COPY CLOSE</button><button class="action" onclick="shareDailyClose()">POST TO X ↗</button></div></div></section>  
 <div class="section-title"><h2>OPERATIONS</h2><span>KEEP YOUR HEAD ON A SWIVEL</span></div>  
-<section class="grid"><div class="card emergency"><b>🚨 WALL STREET EMERGENCY</b><div class="emergency-box" id="emergencyBox"><div class="emergency-status" id="emergencyStatus">● MONITORING</div><p id="emergencyText">Market Desk is watching the Big Three for unusually large 24-hour moves. No active emergency detected.</p></div><div style="color:var(--muted);font-size:9px;margin-top:12px;line-height:1.5">V2.1 WEB ALERTS ARE RULE-BASED AND ONLY RUN WHILE THIS PAGE IS ACTIVE. THE SERVER-SIDE TELEGRAM EMERGENCY ENGINE WILL BE A SEPARATE SYSTEM.</div></div><div class="card today"><b>🏆 TODAY IN THE TRENCHES</b><div style="margin-top:15px"><div class="today-row"><span>Strongest</span><b id="strongest">--</b></div><div class="today-row"><span>Weakest</span><b id="weakest">--</b></div><div class="today-row"><span>Biggest Swing</span><b id="swing">--</b></div><div class="today-row"><span>Average Move</span><b id="averageMove">--</b></div><div class="today-row"><span>Market Mood</span><b id="mood">--</b></div></div></div></section>  
+<section class="grid"><div class="card emergency"><b>🚨 WALL STREET EMERGENCY</b><div class="emergency-box" id="emergencyBox"><div class="emergency-status" id="emergencyStatus">● MONITORING</div><p id="emergencyText">Market Desk is watching the Big Three for unusually large 24-hour moves. No active emergency detected.</p></div><div style="color:var(--muted);font-size:9px;margin-top:12px;line-height:1.5">V2.2 WEB ALERTS ARE RULE-BASED AND ONLY RUN WHILE THIS PAGE IS ACTIVE. THE SERVER-SIDE TELEGRAM EMERGENCY ENGINE WILL BE A SEPARATE SYSTEM.</div></div><div class="card today"><b>🏆 TODAY IN THE TRENCHES</b><div style="margin-top:15px"><div class="today-row"><span>Strongest</span><b id="strongest">--</b></div><div class="today-row"><span>Weakest</span><b id="weakest">--</b></div><div class="today-row"><span>Biggest Swing</span><b id="swing">--</b></div><div class="today-row"><span>Average Move</span><b id="averageMove">--</b></div><div class="today-row"><span>Market Mood</span><b id="mood">--</b></div></div></div></section>  
 <div class="section-title"><h2>STONKERS NETWORK</h2><span>THE REST OF THE TRENCHES</span></div>  
 <section class="grid">  
 <a class="card network-card" href="https://stonkersarmy.carrd.co" target="_blank" rel="noopener noreferrer"><div class="network-icon">🐂</div><b>STONKERS HQ</b><span>The main STONKERS website and project hub.</span></a>  
@@ -92,29 +92,136 @@ function money(n){if(n===undefined||n===null||Number.isNaN(Number(n)))return"--"
 function exactMoney(n){if(n===undefined||n===null||Number.isNaN(Number(n)))return"--";return"$"+Number(n).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}  
 function pct(n){if(n===undefined||n===null||Number.isNaN(Number(n)))return"--";return(Number(n)>=0?"+":"")+Number(n).toFixed(2)+"%"}  
 function changeStyle(el,n){el.classList.remove("up","down","flat");el.classList.add(n>0?"up":n<0?"down":"flat")}  
-function setFeed(state,text){const dot=$("feedDot");dot.classList.remove("live","offline");if(state==="live")dot.classList.add("live");if(state==="offline")dot.classList.add("offline");$("feedStatus").textContent=text}  
-async function getBackupVolume() {
-  try {
-    const response = await fetch("https://api.coinpaprika.com/v1/global", {cache:"no-store"});
-    if (!response.ok) return null;
-    const data = await response.json();
-    const volume = Number(data.volume_24h_usd);
-    const cap = Number(data.market_cap_usd);
-    return Number.isFinite(volume) && Number.isFinite(cap) &&
-      volume > 0 && cap > 0 && volume < cap * 2 ? volume : null;
-  } catch (error) {
-    console.warn("Backup volume unavailable:", error);
-    return null;
+function setFeed(state,text){const dot=$("feedDot");dot.classList.remove("live","offline","partial","stale");if(["live","offline","partial","stale"].includes(state))dot.classList.add(state);$("feedStatus").textContent=text}  
+// V2.2: Independent, bounded, validated public market feeds.
+const COIN_URL="https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana&order=market_cap_desc&sparkline=false&price_change_percentage=24h";
+const GLOBAL_URL="https://api.coingecko.com/api/v3/global";
+const FNG_URL="https://api.alternative.me/fng/?limit=1";
+const STALE_AFTER_MS=5*60*1000;
+const feedTimes={coins:0,global:0,sentiment:0};
+let refreshInProgress=false, globalDataAvailable=false;
+const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function fetchJSON(url,{timeout=9000,retries=1}={}){
+  for(let attempt=0;attempt<=retries;attempt++){
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),timeout);
+    try{
+      const response=await fetch(url,{cache:"no-store",signal:controller.signal});
+      if(!response.ok){
+        const err=new Error("HTTP "+response.status);
+        err.retryable=response.status===429||response.status>=500;
+        throw err;
+      }
+      return await response.json();
+    }catch(error){
+      if(attempt===retries||error.retryable===false)throw error;
+      // Back off for temporary errors and respect rate limits.
+      await sleep(700*(attempt+1));
+    }finally{clearTimeout(timer)}
   }
 }
-  async function loadMarkets(){$("updated").textContent="LAST UPDATE: CONNECTING...";setFeed("connecting","CONNECTING");try{const coinURL="https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana&order=market_cap_desc&sparkline=false&price_change_percentage=24h",globalURL="https://api.coingecko.com/api/v3/global";const [coinRes,globalRes]=await Promise.all([fetch(coinURL,{cache:"no-store"}),fetch(globalURL,{cache:"no-store"})]);if(!coinRes.ok||!globalRes.ok)throw new Error("Market feed unavailable");const coinData=await coinRes.json(),globalData=await globalRes.json();coinData.forEach(c=>coins[c.symbol.toLowerCase()]=c);if(!coins.btc||!coins.eth||!coins.sol)throw new Error("Incomplete market response");renderCoin("btc",coins.btc);renderCoin("eth",coins.eth);renderCoin("sol",coins.sol);const global=globalData.data;$("marketCap").textContent=money(global.total_market_cap?.usd);$("volume").textContent=money(
-  global.total_volume?.usd > 0 &&
-  global.total_volume.usd < global.total_market_cap.usd * 2
-    ? global.total_volume.usd
-    : await getBackupVolume()
-);$("dominance").textContent=global.market_cap_percentage?.btc!==undefined?Number(global.market_cap_percentage.btc).toFixed(1)+"%":"--";await loadFearGreed();updateTrenchMeter();updateBriefing();updateToday();updateTicker();updateEmergency();generateDailyClose();const now=new Date();$("updated").textContent="UPDATED "+now.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});setFeed("live","MARKET FEED LIVE")}catch(err){console.error(err);setFeed("offline","FEED OFFLINE");$("updated").textContent="MARKET FEED TEMPORARILY UNAVAILABLE";document.querySelectorAll(".loading").forEach(el=>{el.textContent="FEED OFFLINE";el.classList.remove("loading")});$("briefing").innerHTML='<div class="brief-line">Market feed is taking cover.</div><div class="brief-line">Try refreshing the desk in a moment.</div><div class="brief-line">Never trust one data source with your life savings.</div>'}}  
+function validNumber(value,{positive=false}={}){
+  return typeof value==="number"&&Number.isFinite(value)&&(!positive||value>0);
+}
+function validateCoins(data){
+  if(!Array.isArray(data))throw new Error("Invalid coin response");
+  const mapped={};
+  for(const c of data){
+    if(!c||!["bitcoin","ethereum","solana"].includes(c.id))continue;
+    if(!validNumber(c.current_price,{positive:true})||!validNumber(c.price_change_percentage_24h))continue;
+    mapped[{bitcoin:"btc",ethereum:"eth",solana:"sol"}[c.id]]=c;
+  }
+  if(!mapped.btc||!mapped.eth||!mapped.sol)throw new Error("Incomplete Big Three prices");
+  return mapped;
+}
+function validateGlobal(response){
+  const d=response?.data;
+  if(!d||!validNumber(d.total_market_cap?.usd,{positive:true})||!validNumber(d.market_cap_percentage?.btc))throw new Error("Invalid global market data");
+  return d;
+}
+function markUnavailable(){
+  for(const prefix of ["btc","eth","sol"]){
+    $(prefix+"Price").textContent="UNAVAILABLE";
+    $(prefix+"Price").classList.remove("loading");
+  }
+  $("trenchBadge").textContent="DATA UNAVAILABLE";
+  $("pulseReason").textContent="Waiting for verified market prices.";
+  $("emergencyStatus").textContent="● MONITORING PAUSED";
+  $("emergencyText").textContent="Market prices unavailable. No live alert assessment is possible.";
+}
+function showFeedHealth(){
+  const now=Date.now();
+  const coinAge=feedTimes.coins?now-feedTimes.coins:Infinity;
+  const globalAge=feedTimes.global?now-feedTimes.global:Infinity;
+  const coinFresh=coinAge<STALE_AFTER_MS;
+  const globalFresh=globalAge<STALE_AFTER_MS;
+  const hasCoins=!!feedTimes.coins;
+  const hasGlobal=!!feedTimes.global;
+  if(coinFresh&&globalFresh)setFeed("live","MARKET FEED LIVE");
+  else if(coinFresh||globalFresh)setFeed("partial","PARTIAL MARKET DATA");
+  else if(hasCoins||hasGlobal)setFeed("stale","STALE MARKET DATA");
+  else setFeed("offline","FEED OFFLINE");
+  const latest=Math.max(feedTimes.coins,feedTimes.global);
+  if(!latest){$("updated").textContent="NO VERIFIED MARKET DATA";return}
+  const age=Math.floor((now-latest)/60000);
+  const time=new Date(latest).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+  $("updated").textContent="LAST SUCCESS: "+time+" • "+(age<1?"LESS THAN 1 MIN":age+" MIN")+" AGO"+(coinFresh&&globalFresh?"":" • CHECK DATA AGE");
+}
+async function getBackupVolume(){
+  try{
+    const d=await fetchJSON("https://api.coinpaprika.com/v1/global",{timeout:6500,retries:0});
+    const v=Number(d.volume_24h_usd),cap=Number(d.market_cap_usd);
+    return Number.isFinite(v)&&Number.isFinite(cap)&&v>0&&cap>0&&v<cap*2?v:null;
+  }catch(e){console.warn("Backup volume unavailable",e);return null}
+}
+async function refreshCoins(){
+  const data=validateCoins(await fetchJSON(COIN_URL));
+  Object.assign(coins,data);
+  for(const key of ["btc","eth","sol"])renderCoin(key,coins[key]);
+  feedTimes.coins=Date.now();
+  updateTrenchMeter();updateBriefing();updateToday();updateTicker();updateEmergency();generateDailyClose();
+}
+async function refreshGlobal(){
+  const d=validateGlobal(await fetchJSON(GLOBAL_URL));
+  $("marketCap").textContent=money(d.total_market_cap.usd);
+  $("dominance").textContent=d.market_cap_percentage.btc.toFixed(1)+"%";
+  const volume=d.total_volume?.usd;
+  if(validNumber(volume,{positive:true})&&volume<d.total_market_cap.usd*2){
+    $("volume").textContent=money(volume);
+  }else{
+    const backup=await getBackupVolume();
+    $("volume").textContent=backup===null?"UNAVAILABLE":money(backup);
+  }
+  globalDataAvailable=true;
+  feedTimes.global=Date.now();
+}
+async function refreshSentiment(){
+  try{
+    const d=await fetchJSON(FNG_URL,{timeout:7000,retries:0});
+    const value=Number(d?.data?.[0]?.value);
+    if(!Number.isInteger(value)||value<0||value>100)throw new Error("Invalid sentiment value");
+    fearGreed=value;fearGreedAvailable=true;feedTimes.sentiment=Date.now();
+    $("fearGreed").textContent=value+" / 100";
+  }catch(error){
+    console.warn("Sentiment unavailable",error);
+    if(!feedTimes.sentiment||Date.now()-feedTimes.sentiment>=STALE_AFTER_MS){
+      fearGreedAvailable=false;$("fearGreed").textContent="UNAVAILABLE";
+    }
+  }
+  if(feedTimes.coins){updateTrenchMeter();updateBriefing();generateDailyClose()}
+}
+async function loadMarkets(){
+  if(refreshInProgress)return;
+  refreshInProgress=true;
+  const hadCoins=!!feedTimes.coins;
+  if(!hadCoins)setFeed("connecting","CONNECTING");
+  try{
+    const results=await Promise.allSettled([refreshCoins(),refreshGlobal(),refreshSentiment()]);
+    for(let i=0;i<results.length;i++)if(results[i].status==="rejected")console.warn(["Coins","Global","Sentiment"][i]+" feed failed:",results[i].reason);
+    if(!feedTimes.coins)markUnavailable();
+  }finally{refreshInProgress=false;showFeedHealth()}
+}
 function renderCoin(prefix,c){if(!c)return;const price=$(prefix+"Price"),change=$(prefix+"Change");price.textContent=money(c.current_price);price.classList.remove("loading");change.textContent=pct(c.price_change_percentage_24h);changeStyle(change,c.price_change_percentage_24h);$(prefix+"Low").textContent=money(c.low_24h);$(prefix+"High").textContent=money(c.high_24h);$(prefix+"Cap").textContent=money(c.market_cap);$(prefix+"Volume").textContent=money(c.total_volume)}  
-async function loadFearGreed(){try{const r=await fetch("https://api.alternative.me/fng/?limit=1",{cache:"no-store"});if(!r.ok)throw new Error();const d=await r.json();fearGreed=Number(d.data[0].value);fearGreedAvailable=true;$("fearGreed").innerHTML=fearGreed+'<span style="font-size:10px;color:var(--muted)"> / 100</span>'}catch{fearGreed=50;fearGreedAvailable=false;$("fearGreed").textContent="Unavailable"}}  
 function getAverageMove(){if(!coins.btc||!coins.eth||!coins.sol)return 0;return(Number(coins.btc.price_change_percentage_24h||0)+Number(coins.eth.price_change_percentage_24h||0)+Number(coins.sol.price_change_percentage_24h||0))/3}  
 function updateTrenchMeter(){const momentum=getAverageMove();let score=50+momentum*4;if(fearGreedAvailable)score=score*.65+fearGreed*.35;score=Math.max(3,Math.min(97,score));trenchScore=score;$("needle").style.left=score+"%";$("trenchScore").textContent=Math.round(score);let label;if(score<20)label="☠ REKT";else if(score<40)label="🩸 BLOOD";else if(score<60)label="⚔ CHOP";else if(score<80)label="🐂 BULLISH";else label="🚀 EUPHORIA";$("trenchBadge").textContent=label;$("mood").textContent=label;let reason="Big Three average: "+pct(momentum);reason+=fearGreedAvailable?" • Fear & Greed: "+fearGreed+"/100":" • External sentiment feed unavailable";$("pulseReason").textContent=reason}  
 function updateBriefing(){if(!coins.btc||!coins.eth||!coins.sol)return;const arr=[{name:"BTC",v:Number(coins.btc.price_change_percentage_24h||0)},{name:"ETH",v:Number(coins.eth.price_change_percentage_24h||0)},{name:"SOL",v:Number(coins.sol.price_change_percentage_24h||0)}];arr.sort((a,b)=>b.v-a.v);const lines=[];if(arr[0].v>3)lines.push(arr[0].name+" is making serious noise at "+pct(arr[0].v)+".");else if(arr[0].v>0)lines.push(arr[0].name+" currently leads the Big Three at "+pct(arr[0].v)+".");else lines.push("Nobody brought the green candles. All three are under pressure.");const avg=getAverageMove();if(avg>3)lines.push("Momentum is hot. Somebody hide the leverage.");else if(avg>.3)lines.push("Green across the desk. Bulls have the microphone.");else if(avg<-3)lines.push("Red across the desk. Helmets on.");else if(avg<-.3)lines.push("Bears are leaning on the market.");else lines.push("Market is chopping. Patience is doing overtime.");if(fearGreedAvailable){if(fearGreed>=75)lines.push("Sentiment is euphoric. Everybody has suddenly become a market genius.");else if(fearGreed<=25)lines.push("Fear is heavy. The trenches are checking their wallets twice.");else lines.push("Sentiment isn't at an extreme. Degens remain unsupervised.")}else lines.push("External sentiment feed is unavailable, so the desk is leaning on price momentum.");$("briefing").innerHTML=lines.map(x=>'<div class="brief-line">'+x+"</div>").join("")}  
@@ -124,7 +231,7 @@ function vote(side){localStorage.setItem("stonkersVoteV2",side);renderVote()}
 function renderVote(){const choice=localStorage.getItem("stonkersVoteV2");let bull=34,unsure=33,bear=33;if(choice==="bull"){bull=50;unsure=25;bear=25}if(choice==="unsure"){bull=25;unsure=50;bear=25}if(choice==="bear"){bull=25;unsure=25;bear=50}$("bullBar").style.width=bull+"%";$("unsureBar").style.width=unsure+"%";$("bearBar").style.width=bear+"%";$("bullPct").textContent=bull+"%";$("unsurePct").textContent=unsure+"%";$("bearPct").textContent=bear+"%";$("bullButton").classList.toggle("selected",choice==="bull");$("unsureButton").classList.toggle("selected",choice==="unsure");$("bearButton").classList.toggle("selected",choice==="bear")}  
 function calculate(){const amount=Number($("calcAmount").value||0),move=Number($("calcMove").value||0),pl=amount*(move/100),final=amount+pl;$("calcFinal").textContent=exactMoney(final);$("calcPL").textContent=(pl>=0?"+":"-")+exactMoney(Math.abs(pl));changeStyle($("calcPL"),pl)}  
 $("calcAmount").addEventListener("input",calculate);$("calcMove").addEventListener("input",calculate);  
-function generateDailyClose(){if(!coins.btc||!coins.eth||!coins.sol){$("dailyClose").textContent="Waiting for market data before building tonight's briefing...";return}let condition;if(trenchScore<20)condition="The trenches are getting smoked.";else if(trenchScore<40)condition="Bears have control of the desk.";else if(trenchScore<60)condition="Chop rules the trenches.";else if(trenchScore<80)condition="Bulls have the advantage.";else condition="The market is running hot.";$("dailyClose").textContent=`STONKERS DAILY CLOSE 🪖 BTC ${money(coins.btc.current_price)} | ${pct(coins.btc.price_change_percentage_24h)}
+function generateDailyClose(){if(!coins.btc||!coins.eth||!coins.sol){$("dailyClose").textContent="Waiting for market data before building tonight's briefing...";return}let condition;if(trenchScore<20)condition="The trenches are getting smoked.";else if(trenchScore<40)condition="Bears have control of the desk.";else if(trenchScore<60)condition="Chop rules the trenches.";else if(trenchScore<80)condition="Bulls have the advantage.";else condition="The market is running hot.";$("dailyClose").textContent=`${Date.now()-feedTimes.coins>=STALE_AFTER_MS?"⚠ STALE MARKET DATA — VERIFY BEFORE POSTING\n":""}STONKERS DAILY CLOSE 🪖 BTC ${money(coins.btc.current_price)} | ${pct(coins.btc.price_change_percentage_24h)}
 ETH ${money(coins.eth.current_price)} | ${pct(coins.eth.price_change_percentage_24h)}
 SOL ${money(coins.sol.current_price)} | ${pct(coins.sol.price_change_percentage_24h)}
 
@@ -135,7 +242,7 @@ Built From Zero.
 No Surrender. No Retreat.`}
 async function copyDailyClose(){try{await navigator.clipboard.writeText($("dailyClose").textContent);showToast("DAILY CLOSE COPIED")}catch{showToast("COPY FAILED")}}
 function shareDailyClose(){window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent($("dailyClose").textContent),"_blank","noopener")}
-function updateEmergency(){if(!coins.btc||!coins.eth||!coins.sol)return;const arr=[{name:"BTC",v:Number(coins.btc.price_change_percentage_24h||0)},{name:"ETH",v:Number(coins.eth.price_change_percentage_24h||0)},{name:"SOL",v:Number(coins.sol.price_change_percentage_24h||0)}],extreme=[...arr].sort((a,b)=>Math.abs(b.v)-Math.abs(a.v))[0],box=$("emergencyBox");if(Math.abs(extreme.v)>=8){box.classList.add("alert");$("emergencyStatus").textContent="● MARKET MOVE DETECTED";$("emergencyText").textContent=extreme.name+" has moved "+pct(extreme.v)+" over the current 24-hour window. This crosses the Market Desk V2.1 web-alert threshold. Verify conditions independently before reacting."}else{box.classList.remove("alert");$("emergencyStatus").textContent="● NO ACTIVE EMERGENCY";$("emergencyText").textContent="Market Desk is watching BTC, ETH and SOL for unusually large 24-hour moves. No V2.1 emergency threshold is currently active."}}
+function updateEmergency(){if(!coins.btc||!coins.eth||!coins.sol)return;if(Date.now()-feedTimes.coins>=STALE_AFTER_MS){$("emergencyBox").classList.remove("alert");$("emergencyStatus").textContent="● MONITORING PAUSED — STALE DATA";$("emergencyText").textContent="Waiting for fresh market data before evaluating alerts.";return;}const arr=[{name:"BTC",v:Number(coins.btc.price_change_percentage_24h||0)},{name:"ETH",v:Number(coins.eth.price_change_percentage_24h||0)},{name:"SOL",v:Number(coins.sol.price_change_percentage_24h||0)}],extreme=[...arr].sort((a,b)=>Math.abs(b.v)-Math.abs(a.v))[0],box=$("emergencyBox");if(Math.abs(extreme.v)>=8){box.classList.add("alert");$("emergencyStatus").textContent="● MARKET MOVE DETECTED";$("emergencyText").textContent=extreme.name+" has moved "+pct(extreme.v)+" over the current 24-hour window. This crosses the Market Desk V2.2 web-alert threshold. Verify conditions independently before reacting."}else{box.classList.remove("alert");$("emergencyStatus").textContent="● NO ACTIVE EMERGENCY";$("emergencyText").textContent="Market Desk is watching BTC, ETH and SOL for unusually large 24-hour moves. No V2.2 emergency threshold is currently active."}}
 const prompts=["BTC drops 8% while you're asleep. What's the first thing you check?","You bought the exact top. Explain your investment thesis in five words.","Pick your fighter for the next 24 hours: BTC, ETH or SOL?","Your coin pumps 300%. Are you taking profit or suddenly becoming a long-term investor?","The chart has gone vertical. What could possibly go wrong?","You have one trade left before your Wi-Fi disappears for a week. What's the move?","SOL is ripping while everything else sleeps. Chase it or watch from the trenches?","Your group chat says 'easy 10x.' Name the first red flag.","You wake up to a sea of red candles. Coffee first or chart first?","Describe the current crypto market using only three words.","A random account says 'last chance before moon.' What happens next?","Your best trade of the month was completely accidental. Admit it.","Bull market confirmed because your cousin asked how to buy crypto. What do you do?","Choose one forever: green candles, sleep, or financial responsibility.","The trenches give you one rule to survive the next cycle. What is it?"];
 function degen(){currentPrompt=prompts[Math.floor(Math.random()*prompts.length)];$("degenPrompt").textContent=currentPrompt}
 function sharePrompt(){if(!currentPrompt)currentPrompt="I'm at the STONKERS Market Desk and apparently financial responsibility has left the building.";window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(currentPrompt+"\n\nLive from the trenches. 🪖\n$STNKS"),"_blank","noopener")}
@@ -143,8 +250,9 @@ function showToast(message){const toast=$("toast");toast.textContent=message;toa
 function clock(){const now=new Date();$("clock").textContent=now.toUTCString().split(" ")[4]+" UTC"}setInterval(clock,1000);clock();
 $("secretBull").addEventListener("click",()=>{secretClicks++;if(secretClicks>=7){secretClicks=0;$("degenOverlay").classList.add("show");document.body.classList.add("degen-mode")}});
 function closeDegenMode(){$("degenOverlay").classList.remove("show");document.body.classList.remove("degen-mode")}
-renderVote();calculate();loadMarkets();setInterval(loadMarkets,120000);
+renderVote();calculate();loadMarkets();setInterval(loadMarkets,120000);setInterval(()=>{showFeedHealth();if(feedTimes.coins){updateEmergency();generateDailyClose()}},30000);
 </script>
 
 </body>  
 </html>
+```
