@@ -6,7 +6,31 @@
 <title>STONKERS Market Desk | Live From The Trenches</title>  
 <meta name="description" content="STONKERS Market Desk — live crypto markets, market intelligence, trench sentiment and tools from the trenches.">  
 <style>  
-:root{--bg:#050806;--panel:#0b100d;--green:#39ff14;--red:#ff3b4d;--amber:#ffbd2e;--white:#f4fff4;--muted:#8da091;--line:#203126}  
+
+/* V2.4 Market Movers layout */
+.market-movers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.market-movers-grid .card {
+  min-width: 0;
+  padding: 20px;
+}
+.market-movers-grid .mover-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 9px 0;
+}
+@media (max-width: 600px) {
+  .market-movers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+  :root{--bg:#050806;--panel:#0b100d;--green:#39ff14;--red:#ff3b4d;--amber:#ffbd2e;--white:#f4fff4;--muted:#8da091;--line:#203126}  
 *{box-sizing:border-box}html{scroll-behavior:smooth}  
 body{margin:0;color:var(--white);background:var(--bg);font-family:Arial,Helvetica,sans-serif;min-height:100vh;position:relative}  
 body:after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradient(rgba(2,6,3,.80),rgba(2,6,3,.92)),url("market-desk-bg.jpg") center top/cover no-repeat fixed}  
@@ -75,7 +99,7 @@ button,input{font:inherit}.wrap{width:min(1220px,94%);margin:auto}
 <section class="grid"><div class="card vote"><b>⚔️ 24H TRENCH CALL</b><p style="color:var(--muted);font-size:12px">What's your read on the next 24 hours?</p><div class="vote-buttons"><button class="vote-btn" id="bullButton" onclick="vote('bull')">🐂<br>BULLISH</button><button class="vote-btn" id="unsureButton" onclick="vote('unsure')">🤷<br>NO DAMN IDEA</button><button class="vote-btn" id="bearButton" onclick="vote('bear')">🐻<br>BEARISH</button></div><div class="vote-bar"><div class="bull-bar" id="bullBar"></div><div class="unsure-bar" id="unsureBar"></div><div class="bear-bar" id="bearBar"></div></div><div class="vote-results"><span>🐂 <b id="bullPct">34%</b></span><span>🤷 <b id="unsurePct">33%</b></span><span><b id="bearPct">33%</b> 🐻</span></div><div class="local-note">V2.2 POLL IS STORED ON YOUR DEVICE • SHARED COMMUNITY VOTING COMING LATER</div></div><div class="card degen"><b>🎰 THE DEGEN TERMINAL</b><p style="color:var(--muted);font-size:12px">Absolutely no financial value. That's probably why you'll press it.</p><button class="degen-button" onclick="degen()">I'M FEELING DEGEN</button><div class="prompt" id="degenPrompt">Press the button. Nothing responsible happens here.</div><button class="action" style="margin-top:10px" onclick="sharePrompt()">SHARE TO X ↗</button></div></section>  
 
 <div class="section-title"><h2>📈 MARKET MOVERS</h2><span>THE BIGGEST MOVES IN THE TRENCHES</span></div>
-<section class="grid">
+<section class="market-movers-grid">
   <div class="card">
     <b>🚀 TOP GAINERS</b>
     <div id="topGainers" style="margin-top:15px;color:var(--muted)">Loading market movers...</div>
@@ -285,7 +309,16 @@ async function loadMarketMovers(){
     if(!response.ok)throw new Error("Market movers unavailable");
     const data=await response.json();
     const valid=data.filter(c=>Number.isFinite(c.price_change_percentage_24h));
-    const render=list=>list.map(c=>`<div style="display:flex;justify-content:space-between;gap:10px;margin:10px 0"><span>${c.symbol.toUpperCase()}</span><b style="color:${c.price_change_percentage_24h>=0?'#39ff14':'#ff3b4d'}">${c.price_change_percentage_24h.toFixed(2)}%</b></div>`).join("");
+    
+const render = list => list.map(c => `
+  <div class="mover-row">
+    <span>${c.symbol.toUpperCase()}</span>
+    <b style="color:${c.price_change_percentage_24h >= 0 ? '#39ff14' : '#ff3b4d'}">
+      ${c.price_change_percentage_24h.toFixed(2)}%
+    </b>
+  </div>
+`).join("");
+
     gainers.innerHTML=render([...valid].sort((a,b)=>b.price_change_percentage_24h-a.price_change_percentage_24h).slice(0,5));
     losers.innerHTML=render([...valid].sort((a,b)=>a.price_change_percentage_24h-b.price_change_percentage_24h).slice(0,5));
   }catch(error){
