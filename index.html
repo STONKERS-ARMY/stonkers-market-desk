@@ -388,6 +388,90 @@ if (coinSearchInput && coinSearchResults) {
   });
 }
 
+  
+// V2.7 - DEX Screener search integration
+const dexSearchResults = document.createElement("div");
+dexSearchResults.style.marginTop = "18px";
+coinSearchResults.after(dexSearchResults);
+
+let dexSearchTimer;
+let dexSearchRequest = 0;
+
+coinSearchInput.addEventListener("input", () => {
+  clearTimeout(dexSearchTimer);
+  const query = coinSearchInput.value.trim();
+  const requestId = ++dexSearchRequest;
+
+  dexSearchResults.replaceChildren();
+
+  if (query.length < 2) return;
+
+  dexSearchResults.textContent = "Searching DEX Screener...";
+
+  dexSearchTimer = setTimeout(async () => {
+    try {
+      const response = await fetch(
+        "https://api.dexscreener.com/latest/dex/search?q=" +
+        encodeURIComponent(query)
+      );
+      if (!response.ok) throw new Error("DEX search unavailable");
+
+      const data = await response.json();
+      if (requestId !== dexSearchRequest) return;
+
+      dexSearchResults.replaceChildren();
+
+      const heading = document.createElement("h3");
+      heading.textContent = "DEX SCREENER RESULTS";
+      heading.style.color = "#39ff14";
+      dexSearchResults.appendChild(heading);
+
+      const pairs = (data.pairs || []).slice(0, 10);
+
+      if (!pairs.length) {
+        dexSearchResults.append("No DEX pairs found.");
+        return;
+      }
+
+      pairs.forEach(pair => {
+        const link = document.createElement("a");
+        link.href = pair.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        const name = pair.baseToken?.name || "Unknown";
+        const symbol = pair.baseToken?.symbol || "?";
+        const chain = pair.chainId || "Unknown";
+        const price = pair.priceUsd
+          ? "$" + Number(pair.priceUsd).toPrecision(5)
+          : "N/A";
+        const change = pair.priceChange?.h24;
+        const liquidity = pair.liquidity?.usd;
+
+        link.textContent =
+          name + " (" + symbol + ") | " +
+          chain.toUpperCase() + " | Price: " + price +
+          " | 24h: " +
+          (change == null ? "N/A" : change + "%") +
+          " | Liquidity: " +
+          (liquidity == null ? "N/A" :
+            "$" + Number(liquidity).toLocaleString());
+
+        link.style.cssText =
+          "display:block;padding:12px;color:#39ff14;" +
+          "text-decoration:none;border-bottom:1px solid #333";
+
+        dexSearchResults.appendChild(link);
+      });
+    } catch (error) {
+      if (requestId === dexSearchRequest) {
+        dexSearchResults.textContent =
+          "DEX Screener temporarily unavailable.";
+      }
+    }
+  }, 600);
+});
+
                                                                                      function renderCoin(prefix,c){if(!c)return;const price=$(prefix+"Price"),change=$(prefix+"Change");price.textContent=money(c.current_price);price.classList.remove("loading");change.textContent=pct(c.price_change_percentage_24h);changeStyle(change,c.price_change_percentage_24h);$(prefix+"Low").textContent=money(c.low_24h);$(prefix+"High").textContent=money(c.high_24h);$(prefix+"Cap").textContent=money(c.market_cap);$(prefix+"Volume").textContent=money(c.total_volume)}  
 function getAverageMove(){if(!coins.btc||!coins.eth||!coins.sol)return 0;return(Number(coins.btc.price_change_percentage_24h||0)+Number(coins.eth.price_change_percentage_24h||0)+Number(coins.sol.price_change_percentage_24h||0))/3}  
 function updateTrenchMeter(){const momentum=getAverageMove();let score=50+momentum*4;if(fearGreedAvailable)score=score*.65+fearGreed*.35;score=Math.max(3,Math.min(97,score));trenchScore=score;$("needle").style.left=score+"%";$("trenchScore").textContent=Math.round(score);let label;if(score<20)label="☠ REKT";else if(score<40)label="🩸 BLOOD";else if(score<60)label="⚔ CHOP";else if(score<80)label="🐂 BULLISH";else label="🚀 EUPHORIA";$("trenchBadge").textContent=label;$("mood").textContent=label;let reason="Big Three average: "+pct(momentum);reason+=fearGreedAvailable?" • Fear & Greed: "+fearGreed+"/100":" • External sentiment feed unavailable";$("pulseReason").textContent=reason}  
