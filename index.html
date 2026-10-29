@@ -442,23 +442,33 @@ coinSearchInput.addEventListener("input", () => {
         const name = pair.baseToken?.name || "Unknown";
         const symbol = pair.baseToken?.symbol || "?";
         const chain = pair.chainId || "Unknown";
+        
+const tokenAddress = pair.baseToken?.address || "N/A";
+const exchange = pair.dexId || "Unknown";
+const pairAddress = pair.pairAddress || "N/A";
+
         const price = pair.priceUsd
           ? "$" + Number(pair.priceUsd).toPrecision(5)
           : "N/A";
         const change = pair.priceChange?.h24;
         const liquidity = pair.liquidity?.usd;
 
-        link.textContent =
-          name + " (" + symbol + ") | " +
-          chain.toUpperCase() + " | Price: " + price +
-          " | 24h: " +
-          (change == null ? "N/A" : change + "%") +
-          " | Liquidity: " +
-          (liquidity == null ? "N/A" :
-            "$" + Number(liquidity).toLocaleString());
+        
+link.textContent =
+  name + " (" + symbol + ") | " +
+  chain.toUpperCase() + " | Exchange: " + exchange +
+  " | Price: " + price +
+  " | 24h: " +
+  (change == null ? "N/A" : change + "%") +
+  " | Liquidity: " +
+  (liquidity == null ? "N/A" :
+    "$" + Number(liquidity).toLocaleString()) +
+  "\nToken CA: " + tokenAddress +
+  "\nPair Address: " + pairAddress;
+
 
         link.style.cssText =
-          "display:block;padding:12px;color:#39ff14;" +
+          "display:block;padding:12px;color:#39ff14;white-space:pre-wrap;overflow-wrap:anywhere;" +
           "text-decoration:none;border-bottom:1px solid #333";
 
         dexSearchResults.appendChild(link);
