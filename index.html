@@ -311,12 +311,14 @@ async function loadMarketMovers(){
     const valid=data.filter(c=>Number.isFinite(c.price_change_percentage_24h));
     
 const render = list => list.map(c => `
-  <div class="mover-row">
+  
+<a class="mover-row" href="https://www.coingecko.com/en/coins/${encodeURIComponent(c.id)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;cursor:pointer">
+
     <span>${c.symbol.toUpperCase()}</span>
     <b style="color:${c.price_change_percentage_24h >= 0 ? '#39ff14' : '#ff3b4d'}">
       ${c.price_change_percentage_24h.toFixed(2)}%
     </b>
-  </div>
+  </a>
 `).join("");
 
     gainers.innerHTML=render([...valid].sort((a,b)=>b.price_change_percentage_24h-a.price_change_percentage_24h).slice(0,5));
